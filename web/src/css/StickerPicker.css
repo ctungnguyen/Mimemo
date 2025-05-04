@@ -1,0 +1,46 @@
+/* StickerPicker.css */
+
+/* make the two-page container a positioning context */
+.notebook-area {
+    position: relative;
+  }
+  
+  /* the vertical, scrollable sticker palette */
+  .sticker-picker {
+    position: absolute;
+    top: 16px;
+    left: -140px;              /* adjust so the panel sits just to the left of your pages */
+    width: 120px;              /* narrow column */
+    height: calc(100% - 32px); /* full height of the notebook area minus top/bottom padding */
+    background: #fff;          /* white background */
+    border: 2px solid #333;
+    border-radius: 8px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;          /* scroll when too tall */
+    z-index: 50;
+  }
+  
+  /* each thumbnail in the list */
+  .sticker-thumb {
+    width: 100%;
+    height: auto;
+    cursor: grab;
+    border: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  
+  .sticker-thumb:hover {
+    border-color: #999;
+  }
+  
+  /* the draggable sticker once it's placed */
+  .sticker-draggable {
+    position: absolute;
+    width: 100px;  /* or whatever size works for you */
+    height: auto;
+    cursor: move;
+    z-index: 100;
+  }

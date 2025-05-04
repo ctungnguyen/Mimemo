@@ -1,0 +1,88 @@
+/* Reset any default margins */
+html, body {
+    margin: 0;
+    padding: 0;
+    
+  }
+  
+  /* full-viewport blurred background */
+  .background {
+    
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    
+    z-index: 1;
+  }
+  
+  /* top bar: clock on left, “photobooth” text on right */
+  .header {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+  }
+  
+  .clock {
+    width: 48px;
+    height: auto;
+  }
+  
+  .frame {
+    font-family: 'Courier New', monospace;
+    color: white;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+  }
+  
+  /* left-side vertical prompt */
+  .change-color {
+    position: absolute;
+    top: 65%;
+    left: 16px;
+    transform: translateY(-50%) rotate(-90deg);
+    transform-origin: left top;
+    font-family: 'Courier New', monospace;
+    color: white;
+    z-index: 2;
+  }
+  
+  /* center container for the main preview + shutter */
+  .photobooth-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+  }
+  
+  .main-photo {
+    width: 1195px;      /* adjust as needed */
+    height: 666px;
+
+  }
+  
+  /* big round “shutter” button */
+  .take-photo-button {
+    position: absolute;
+    top: 530px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(249, 203, 143, 0.9); /* #F9CB8F at 90% opacity */
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    z-index: 2;
+  }
+  
+  .take-photo-button:hover {
+    transform: scale(1.1);
+  }

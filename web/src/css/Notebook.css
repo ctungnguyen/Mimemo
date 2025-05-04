@@ -1,0 +1,174 @@
+/* top-nav + dropdown */
+.top-nav {
+    position: absolute;
+    top: 16px; left: 16px;
+    z-index: 30;
+  }
+  .menu-icon {
+    width: 32px;
+    cursor: pointer;
+  }
+  .menu-dropdown {
+    position: absolute;
+    top: 36px; left: 0;
+    background: red;
+    border: 2px solid white;
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 35;
+  
+    /* smooth fade-in */
+    opacity: 0;
+    animation: fadeIn 0.2s ease-in forwards;
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+  .dropdown-item {
+    padding: 8px 12px;
+    color: white;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+  }
+  .dropdown-item:hover {
+    background: rgba(255,255,255,0.2);
+  }
+  
+  /* right-nav print */
+  .right-nav {
+    position: absolute;
+    top: 16px; right: 16px;
+    z-index: 30;
+  }
+  .print-icon {
+    width: 32px;
+    cursor: pointer;
+  }
+  
+  /* color panel + eraser button */
+  .color-panel {
+    position: absolute;
+    top: 60px; left: 16px;
+    display: grid;
+    grid-template-columns: repeat(9, 24px) 32px;
+    grid-gap: 4px;
+    background: #222;
+    padding: 8px;
+    border: 2px solid white;
+    border-radius: 8px;
+    z-index: 30;
+  }
+  .color-swatch {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    border: 2px solid #555;
+    transition: border-color 0.2s;
+  }
+  .color-swatch:hover,
+  .color-swatch.active {
+    border-color: white;
+  }
+  .eraser-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .eraser-button img {
+    width: 24px;
+  }
+  
+  /* pages + nav + canvas wrapper */
+  .nb-viewer {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    align-items: center;
+    z-index: 10;
+  }
+  .nb-nav {
+    font-size: 2rem;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0 12px;
+  }
+  .nb-nav:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+  .nb-pages {
+    position: relative;
+    display: flex;
+    gap: 16px;
+    width: 80vw;
+    max-width: 900px;
+    height: auto;
+  }
+  .nb-page {
+    width: 50%;
+    object-fit: contain;
+    box-shadow: 0 0 8px rgba(0,0,0,0.3);
+  }
+  
+  /* lock drawing by default */
+  .canvas-wrapper {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 15;
+  
+    pointer-events: none;
+  }
+  
+  /* enable drawing when this class is applied */
+  .canvas-wrapper.draw-enabled {
+    pointer-events: auto;
+  }
+  
+  /* counter */
+  .page-counter {
+    position: absolute;
+    top: calc(50% + 30vh);
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-family: 'Courier New', monospace;
+    z-index: 10;
+  }
+  
+  /* print */
+  @media print {
+    body * { visibility: hidden; }
+    .nb-pages, .nb-pages * { visibility: visible; }
+    .nb-pages {
+      position: static;
+      display: block;
+      margin: 0 auto;
+      width: 100%;
+      max-width: none;
+    }
+  }
+
+
+/* Text items you can drag around */
+.text-item {
+    position: absolute;
+    padding: 4px 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    color: #000;
+    background: rgba(255,255,255,0.8);
+    border: 1px dashed #888;
+    cursor: move;
+    user-select: none;
+    white-space: pre;
+  }
+  
+  .text-item:hover {
+    border-color: #444;
+  }
+

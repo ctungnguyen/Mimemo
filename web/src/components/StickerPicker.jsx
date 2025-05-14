@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';import Draggable from 'react-draggable';
+import React, { useState, useRef } from 'react';
+import Draggable from 'react-draggable';
 import '../css/StickerPicker.css';
 
 const modules = import.meta.glob(
@@ -11,7 +12,6 @@ export default function StickerPicker({ bounds = '.notebook-area' }) {
   const [activeSticker, setActiveSticker] = useState(null);
   const stickerRef = useRef(null);
 
-
   return (
     <>
       <div className="sticker-picker">
@@ -22,7 +22,7 @@ export default function StickerPicker({ bounds = '.notebook-area' }) {
             className="sticker-thumb"
             onClick={e => {
               e.stopPropagation();
-              setActiveSticker(src);
+              setActiveSticker(src); // Select sticker to be draggable
             }}
             alt="sticker thumb"
           />
@@ -37,7 +37,7 @@ export default function StickerPicker({ bounds = '.notebook-area' }) {
             className="sticker-draggable"
             onDoubleClick={e => {
               e.stopPropagation();
-              setActiveSticker(null);
+              setActiveSticker(null); // Remove sticker when double clicked
             }}
             alt="sticker"
           />

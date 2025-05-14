@@ -1,51 +1,52 @@
 import React, { useState } from 'react';
-import { Link }     from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import frame        from '../assets/wall/wall.png';
-import backIcon     from '../assets/wall/eye-off.svg';    // swap icon
-import stickerIcon  from '../assets/wall/sticker.svg';
-import stickerIconOn from '../assets/wall/sticker-on.svg';
+import frame       from '../assets/wall/wall.png';
+import backIcon    from '../assets/wall/eye-off.svg';
+import stickerOff  from '../assets/wall/sticker.svg';
+import stickerOn   from '../assets/wall/sticker-on.svg';
+import background from '../assets/wall/vector-4.png';
 
 import StickerPicker from '../components/StickerPicker';
 import "../css/Wall.css";
 
-function WallEdit() {
-    const [stickersOn, setStickersOn] = useState(false);
+export default function WallEdit() {
+  const [showStickers, setShowStickers] = useState(false);
 
-    return (
-      <>
-          <header className="wall-header">
-        {/* back to view mode */}
-        <Link to="/wall" className="header-icon left">
-          <img src={backIcon} alt="back to view" />
-        </Link>
+  // Toggle Sticker Picker visibility
+  function selectStickers() {
+    setShowStickers(s => !s);
+  }
 
+  return (
+    <div className="wall-page edit-mode">
+      <img src={background} className="wall-bg" alt="background" />
+      <header className="wall-header">
+        <div className="header-left">
+          <img
+            src={showStickers ? stickerOn : stickerOff}
+            alt="toggle stickers"
+            className="header-icon"
+            onClick={selectStickers} // Toggle stickers visibility
+          />
+        </div>
         <div className="header-center">edit your wall</div>
-
-        {/* toggle stickers */}
-        <img
-          src={stickersOn ? stickerIconOn : stickerIcon}
-          alt="stickers"
-          className="header-icon right"
-          onClick={() => setStickersOn(on => !on)}
-        />
+        <div className="header-right">
+          <Link to="/wall">
+            <img src={backIcon} alt="back to view" className="header-icon"/>
+          </Link>
+        </div>
       </header>
 
-      <div className="wall-frame-container">
-        <img src={frame} alt="wall frame" className="wall-frame" />
-
-        <div className="pins">
-          {stickersOn && <StickerPicker bounds=".pins" />}
-          {/* here you can also render <TextTool /> or <BrushTool /> etc */}
-        </div>
+      <div className="wall-frame-container edit-area">
+        <img src={frame} alt="wall frame edit-area" className="wall-frame"/>
+          {/* Show the StickerPicker when stickersOn is true */}
+          {showStickers && <StickerPicker bounds=".edit-area" />}
       </div>
 
       <footer className="wall-footer">
-        drag & drop stickers, then switch back to view →  
+        drag &amp; drop stickers, then switch back to view →
       </footer>
-      </>
-    )
-  }
-  
-  export default WallEdit
-  
+    </div>
+  );
+}

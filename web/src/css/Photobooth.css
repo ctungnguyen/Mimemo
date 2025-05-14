@@ -1,88 +1,312 @@
-/* Reset any default margins */
+/* General reset */
 html, body {
-    margin: 0;
-    padding: 0;
-    
-  }
-  
-  /* full-viewport blurred background */
-  .background {
-    
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    
-    z-index: 1;
-  }
-  
-  /* top bar: clock on left, “photobooth” text on right */
-  .header {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    right: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 2;
-  }
-  
-  .clock {
-    width: 48px;
-    height: auto;
-  }
-  
-  .frame {
-    font-family: 'Courier New', monospace;
-    color: white;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-  }
-  
-  /* left-side vertical prompt */
-  .change-color {
-    position: absolute;
-    top: 65%;
-    left: 16px;
-    transform: translateY(-50%) rotate(-90deg);
-    transform-origin: left top;
-    font-family: 'Courier New', monospace;
-    color: white;
-    z-index: 2;
-  }
-  
-  /* center container for the main preview + shutter */
-  .photobooth-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 2;
-  }
-  
-  .main-photo {
-    width: 1195px;      /* adjust as needed */
-    height: 666px;
+  margin: 0;
+  padding: 0;
+}
 
-  }
-  
-  /* big round “shutter” button */
-  .take-photo-button {
-    position: absolute;
-    top: 530px;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: rgba(249, 203, 143, 0.9); /* #F9CB8F at 90% opacity */
-    cursor: pointer;
-    transition: transform 0.2s ease;
-    z-index: 2;
-  }
-  
-  .take-photo-button:hover {
-    transform: scale(1.1);
-  }
+/* Full viewport background image */
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* Header: Clock and Frame Selection */
+.header {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+}
+
+.clock {
+  width: 48px;
+  height: auto;
+}
+
+.frame {
+  font-family: 'Courier New', monospace;
+  color: white;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+/* Frame Selection Dropdown */
+.frame-dropdown {
+  position: absolute;
+  top: 40px;
+  right: 16px;
+  background: white;
+  color: black;
+  padding: 8px;
+  border-radius: 6px;
+  z-index: 5;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.frame-dropdown p {
+  margin: 0;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.frame-dropdown p:hover {
+  background: #f0f0f0;
+}
+
+
+/* Main Content: Camera and Button */
+.photobooth-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+
+.main-photo {
+  width: 1195px;
+  height: 666px;
+  object-fit: cover;
+}
+
+.take-photo-button {
+  position: absolute;
+  top: 530px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(249, 203, 143, 0.9);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  z-index: 2;
+}
+
+.take-photo-button:hover {
+  transform: scale(1.1);
+}
+
+/* Style for capturing images in 4-frame mode */
+.captured-images-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.captured-image {
+  width: 45%;
+}
+
+.preview-photo-wrapper {
+  position: relative;
+  padding: 20px;
+}
+
+/* Preview photo after capture */
+.preview-photo {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+  object-fit: cover;
+}
+
+/* For displaying 4-frame style */
+.frame-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selected-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.selected-frame,
+.preview-photo {
+  object-fit: contain; /* Ensure the image fits within the frame */
+}
+
+.preview-photo-wrapper {
+  position: relative;
+  padding: 20px;
+}
+
+/* Disable the default camera view when capturing */
+.video-preview {
+  display: none;
+}
+
+/* Full height, full-width layout for the camera */
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+
+
+/* Frame-overlay that will show on top of the camera feed */
+.frame-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 700px;  /* Adjust to your frame image size */
+  height: 950px; /* Adjust to your frame image size */
+  pointer-events: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Style for the dropbox when the user selects 4-frame option */
+.frame-dropdown p {
+  margin: 0;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.frame-dropdown p:hover {
+  background-color: #ddd;
+}
+
+.frame-dropdown {
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+/* Style for the preview photo */
+.preview-photo-wrapper {
+  position: relative;
+  padding: 20px;
+}
+
+.preview-photo {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+  object-fit: cover;
+}
+
+
+/* Styling for capturing images in 4-frame mode */
+.frame-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 70%;
+  height: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.image-slot-0, .image-slot-1, .image-slot-2, .image-slot-3 {
+  position: relative;
+  width: 100%;
+  height: 25%;
+  background-color: white; /* Square background color for white slot */
+  border: 2px solid #ccc; /* Optional border for visibility */
+}
+
+.captured-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* Frame overlay container */
+.frame-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 700px;  /* Adjust width and height to fit your frame image */
+  height: 950px; /* Adjust these to match your frame aspect ratio */
+  pointer-events: none; /* Prevent interaction */
+}
+
+
+/* Video preview slots for 4-frame mode */
+.video-slot {
+  position: absolute;
+  width: 90%;   /* Adjust to fit each white square */
+  height: 22%;  /* Adjust to fit each white square */
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.6);
+  object-fit: cover;
+  z-index: 2;
+}
+
+
+/* Position each video slot exactly over the white squares */
+.video-slot-0 { top: 5%; left: 5%; }
+.video-slot-1 { top: 27%; left: 5%; }
+.video-slot-2 { top: 49%; left: 5%; }
+.video-slot-3 { top: 71%; left: 5%; }
+
+/* Captured images positioned on top of each slot */
+.captured-image {
+  position: absolute;
+  width: 90%;
+  height: 22%;
+  top: 0;
+  left: 5%;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 0 6px rgba(0,0,0,0.5);
+  z-index: 5;
+}
+
+.captured-image-0 { top: 5%; left: 5%; }
+.captured-image-1 { top: 27%; left: 5%; }
+.captured-image-2 { top: 49%; left: 5%; }
+.captured-image-3 { top: 71%; left: 5%; }
+
+/* Single frame mode captured image */
+.captured-image-single {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+  border-radius: 12px;
+  z-index: 5;
+}
+

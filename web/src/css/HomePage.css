@@ -46,7 +46,7 @@
 
 .flower {
     position: absolute;
-    bottom: 119px;
+    top: 66px;
     left: 847px;
     width: 540px;
     height: 544px;
@@ -55,7 +55,7 @@
 
 .mode-toggle {
     position: absolute;
-    bottom: 135px;
+    top: 550px;
     left: 28px;
     display: flex;
     gap: 6px;

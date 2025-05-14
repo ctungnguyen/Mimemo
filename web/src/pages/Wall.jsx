@@ -1,46 +1,42 @@
 import React from 'react';
-
-// import background from '../assets/wall/background-blue.png';
-import frame      from '../assets/wall/wall.png';
-import eyeIcon    from '../assets/wall/eye.svg';
-
-
-import "../css/Wall.css";
 import { Link, Outlet } from 'react-router-dom';
 
-function Wall() {
+import frame   from '../assets/wall/wall.png';
+import eyeIcon from '../assets/wall/eye.svg';
+import background from '../assets/wall/vector-4.png';
 
+import "../css/Wall.css";
+
+export default function Wall() {
   return (
-    <>
-      {/* background */}
-      {/* <img src={background} alt="background" className="wall-bg" /> */}
-
-      {/* header */}
+    <div className="wall-page">
+      <img src={background} className="wall-bg" alt="background" />
       <header className="wall-header">
-        <div className="header-left">logo</div>
+        <div className="header-left">
+          {/* no sticker toggle in view mode */}
+          logo
+        </div>
         <div className="header-center">emquyttt’s wall</div>
-        <Link to="/wall/edit" className="header-icon right"><img src={eyeIcon} alt="view" className="header-eye" /> </Link>
+        <div className="header-right">
+          <Link to="edit">
+            <img src={eyeIcon} alt="edit" className="header-icon"/>
+          </Link>
+        </div>
       </header>
 
-      {/* framed cork board */}
       <div className="wall-frame-container">
-        <img src={frame} alt="wall frame" className="wall-frame" />
-        {/* pins/stickers will go here */}
+        <img src={frame} alt="wall frame" className="wall-frame"/>
         <div className="pins">
-          {/* example:
-            <img src={someSticker} className="pin" style={{ top: 50, left: 100 }} />
-          */}
+          {/* view‐only: no StickerPicker here */}
         </div>
       </div>
 
-      {/* footer ticker */}
       <footer className="wall-footer">
-        decorate your wall ! ^^ decorate your wall ! ^^ decorate your wall ! ^^ 
+        decorate your wall ! ^^ decorate your wall ! ^^ decorate your wall ! ^^
       </footer>
 
-      <Outlet />
-    </>
-  )
+      {/* this is where /wall/edit will render */}
+      <Outlet/>
+    </div>
+  );
 }
-
-export default Wall

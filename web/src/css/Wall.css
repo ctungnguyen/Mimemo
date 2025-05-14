@@ -1,138 +1,96 @@
 .wall-page {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    font-family: 'Courier New', monospace;
-    color: white;
-  }
-  
-  /* full-screen background */
-  /* .wall-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-  } */
-  
-  /* header bar */
-  .wall-header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
-    z-index: 5;
-  }
-  
-  .header-left {
-    flex: 1;
-  }
-  
-  .header-center {
-    flex: 1;
-    text-align: center;
-    font-size: 1.2rem;
-    text-transform: lowercase;
-  }
-  
-  .header-eye {
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-  }
-  
-  /* frame container */
-  .wall-frame-container {
-    position: absolute;
-    top: 80px;      /* adjust to sit below header */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80vw;
-    max-width: 1200px;
-    height: 60vh;
-    max-height: 600px;
-    z-index: 3;
-  }
-  
-  /* frame image (outer border) */
-  .wall-frame {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    pointer-events: none;
-  }
-  
-  /* area inside the frame where pins/stickers go */
-  .pins {
-    position: absolute;
-    /* adjust these inward so your pins live inside the inner corkboard */
-    top: 5%;
-    left: 5%;
-    width: 90%;
-    height: 90%;
-    /* optionally, a slight drop-shadow to separate from frame */
-    box-shadow: inset 0 0 0 2px rgba(0,0,0,0.2);
-    overflow: hidden;
-    z-index: 2;
-  }
-  
-  /* individual “pin” */
-  .pins .pin {
-    position: absolute;
-    width: 120px;  /* default pin size */
-    height: auto;
-    cursor: grab;
-  }
-  
-  /* footer ticker */
-  .wall-footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    white-space: nowrap;
-    font-size: 0.9rem;
-    color: white;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #1f1f1f;
+  color: white;
+  font-family: 'Courier New', monospace;
+}
 
-    z-index: 5;
-  }
-  
-  /* simple marquee animation */
-  .wall-footer::before {
-    content: attr(data-text);
-  }
-  .wall-footer {
-    --text: "decorate your wall ! ^^ ";
-    animation: marquee 10s linear infinite;
-  }
+/* header */
+.wall-header {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  z-index: 10;
+}
+.header-left,
+.header-center,
+.header-right {
+  flex: 1;
+}
+.header-center {
+  text-align: center;
+  font-size: 1.2rem;
+  text-transform: lowercase;
+}
+.header-left {
+  text-align: left;
+}
+.header-right {
+  text-align: right;
+}
+.header-icon {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
 
-  @keyframes marquee {
-    from {
-      transform: translateX(0%);
-    }
-    to {
-      transform: translateX(-100%);
-    }
-  }
+/* frame & pins */
+.wall-frame-container {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80vw;
+  max-width: 1200px;
+  height: 60vh;
+  max-height: 600px;
+  z-index: 5;
+}
+.wall-frame {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+.pins {
+  position: absolute;
+  top: 5%; left: 5%;
+  width: 90%; height: 90%;
+  overflow: hidden;
+  z-index: 4;
+}
+
+/* footer marquee */
+.wall-footer {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  z-index: 10;
+  /* marquee */
+  animation: marquee 10s linear infinite;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
+/* slightly highlight frame in edit mode */
+.wall-page.edit-mode .wall-frame {
+  box-shadow: 0 0 16px rgba(255,255,255,0.6);
+}
 
 
-  .wall-page.edit-mode .wall-frame {
-    /* maybe a subtle glow or border to indicate you’re in edit mode */
-    box-shadow: 0 0 16px rgba(255,255,255,0.6);
-  }
-  
+
+

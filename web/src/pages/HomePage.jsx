@@ -11,8 +11,9 @@
     import window_frame from '../assets/homepage/khung-cua-so.png'
     import background from '../assets/homepage/day-mode.png'
     import camera from '../assets/homepage/camera.png'
-    import red_book from '../assets/homepage/red-book.png'
-    import green_book from '../assets/homepage/green-book.png'
+
+
+    import NotebookList from '../components/NotebookList';
 
     import '../css/HomePage.css'
 
@@ -180,11 +181,7 @@
                 </p>
 
 
-                <Link to="/notebook" className="notebook-link">
-                    <img src={red_book} alt="red notebook" className="notebook-img" />
-                </Link>
-                <p className='greenbook'><img src={green_book} alt="green notebook" className="greenbook-img" /></p>
-
+                <NotebookList />
                 <p
                     ref={fourthRef}
                     className={`fourth-shelf ${fourthVisible ? 'fade-in' : 'fade-out'}`}

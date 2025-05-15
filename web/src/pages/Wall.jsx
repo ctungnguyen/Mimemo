@@ -18,7 +18,7 @@ export default function Wall() {
         </div>
         <div className="header-center">emquyttt’s wall</div>
         <div className="header-right">
-          <Link to="edit">
+          <Link to="/wall/edit">
             <img src={eyeIcon} alt="edit" className="header-icon"/>
           </Link>
         </div>
@@ -35,8 +35,8 @@ export default function Wall() {
         decorate your wall ! ^^ decorate your wall ! ^^ decorate your wall ! ^^
       </footer>
 
-      {/* this is where /wall/edit will render */}
-      <Outlet/>
+      {/* this is where /wall/edit will render
+      <Outlet/> */}
     </div>
   );
 }

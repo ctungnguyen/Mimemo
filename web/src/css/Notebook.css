@@ -1,9 +1,23 @@
+.background{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
 /* top-nav + dropdown */
 .top-nav {
-    position: absolute;
-    top: 16px; left: 16px;
-    z-index: 30;
-  }
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 30;
+}
+
   .menu-icon {
     width: 32px;
     cursor: pointer;
@@ -34,16 +48,35 @@
     background: rgba(255,255,255,0.2);
   }
   
-  /* right-nav print */
-  .right-nav {
-    position: absolute;
-    top: 16px; right: 16px;
-    z-index: 30;
-  }
-  .print-icon {
-    width: 32px;
-    cursor: pointer;
-  }
+
+
+.bell-icon {
+  width: 28px;
+  height: auto;
+  cursor: pointer;
+}
+
+.print-icon {
+  width: 28px;
+  height: auto;
+  cursor: pointer;
+}
+
+/* Bottom right icon group */
+.bottom-right-icons {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 30;
+}
+
+.bottom-right-icons img {
+  width: 28px;
+  cursor: pointer;
+}
   
   /* color panel + eraser button */
   .color-panel {
@@ -95,24 +128,28 @@
     color: white;
     cursor: pointer;
     padding: 0 12px;
+    margin: 20px;
   }
   .nb-nav:disabled {
     opacity: 0.3;
     cursor: default;
   }
-  .nb-pages {
-    position: relative;
-    display: flex;
-    gap: 16px;
-    width: 80vw;
-    max-width: 900px;
-    height: auto;
-  }
-  .nb-page {
-    width: 50%;
-    object-fit: contain;
-    box-shadow: 0 0 8px rgba(0,0,0,0.3);
-  }
+
+.nb-pages {
+  position: relative;
+  display: flex;
+  gap: 5px;             /* smaller gap between pages */
+  max-width: 900px;    /* container max width */
+  width: 90vw;          /* make container responsive */
+  height: 80vh;         /* fixed height for consistency */
+}
+
+.nb-page {
+  flex: 1;              /* make each page equally share the container space */
+  height: 100%;         /* fill parent's height */
+  object-fit: contain;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
   
   /* lock drawing by default */
   .canvas-wrapper {
@@ -130,15 +167,15 @@
   }
   
   /* counter */
-  .page-counter {
-    position: absolute;
-    top: calc(50% + 30vh);
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-    font-family: 'Courier New', monospace;
-    z-index: 10;
-  }
+.page-counter {
+  position: absolute;
+  top: calc(50% + 40vh); /* Lowered from 30vh to 40vh for more space below */
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-family: 'Courier New', monospace;
+  z-index: 10;
+}
   
   /* print */
   @media print {
@@ -171,4 +208,6 @@
   .text-item:hover {
     border-color: #444;
   }
+
+  
 

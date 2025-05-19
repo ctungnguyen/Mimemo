@@ -1,19 +1,38 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-import background from '../assets/photobooth/camera-mode-blue.png';
+import ChangeBgColor from '../components/ChangeBgColor';
+
+import blue_background from '../assets/photobooth/camera-mode-blue.png';
+import pink_background from '../assets/photobooth/camera-mode-pink.png';
+import beige_background from '../assets/photobooth/camera-mode-beige.png';
+import black_background from '../assets/photobooth/camera-mode-black.png';
+
 import clock from '../assets/photobooth/clock.svg';
 import pastel_frame from '../assets/photobooth/ptb-frame-12.png';
 import purple_frame from '../assets/photobooth/purple-frame-1.png';
 import pink_frame from '../assets/photobooth/pink-frame-1.png';
 
+import logo from '../assets//logo.svg';
+
+import cameraSound from '../audio/camera-click.mp3';
+
+
 import "../css/Photobooth.css";
+import { useParams } from 'react-router-dom';
+
+
 
 function Photobooth() {
+
+  const { userId } = useParams();
   const videoRef = useRef(null);
   const canvasRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const captureCanvasRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const initialBgIndex = location.state?.bgIndex || 0;
 
   const [showFrameOptions, setShowFrameOptions] = useState(false);
   const [showSubFrameOptions, setShowSubFrameOptions] = useState(false);
@@ -22,12 +41,22 @@ function Photobooth() {
   const [capturedImages, setCapturedImages] = useState([null, null, null, null]);
   const [currentSlot, setCurrentSlot] = useState(0);
 
-  // Timer dropdown visibility & countdown states
   const [showTimerDropdown, setShowTimerDropdown] = useState(false);
   const [countdownTime, setCountdownTime] = useState(0);
   const [countdownActive, setCountdownActive] = useState(false);
 
-  // Start webcam stream once
+    const cameraAudioRef = useRef(null);
+
+
+  // Background index state
+  const [bgIndex, setBgIndex] = useState(initialBgIndex);
+
+  const backgrounds = [blue_background, pink_background, beige_background, black_background];
+  
+  const handleChangeBackground = () => {
+    setBgIndex((prevIndex) => (prevIndex + 1) % backgrounds.length);
+  };
+
   useEffect(() => {
     async function enableCamera() {
       try {
@@ -56,14 +85,12 @@ function Photobooth() {
         setCountdownTime(countdownTime - 1);
       }, 1000);
     } else if (countdownActive && countdownTime === 0) {
-      // Time's up - take the photo
       setCountdownActive(false);
       takePhoto();
     }
     return () => clearTimeout(timerId);
   }, [countdownActive, countdownTime]);
 
-  // Draw webcam feed to all 4 canvases continuously (only for 4-frame mode)
   useEffect(() => {
     let animationFrameId;
 
@@ -96,7 +123,6 @@ function Photobooth() {
     setCapturedImages([null, null, null, null]);
     setCurrentSlot(0);
 
-    // FIX: Clear selected frame when switching back to 1-frame mode
     if (mode === '1') {
       setSelectedFrame(null);
     }
@@ -110,8 +136,17 @@ function Photobooth() {
     setCurrentSlot(0);
   };
 
-  // Trigger countdown or capture immediately if 0
+    // Play camera sound function
+  const playCameraSound = () => {
+    if (cameraAudioRef.current) {
+    const audio = new Audio(cameraSound);
+    audio.play().catch(() => {});
+    }
+  };
+
   const onTakePhotoClick = () => {
+    playCameraSound();
+
     if (countdownTime > 0) {
       setCountdownActive(true);
       setShowTimerDropdown(false);
@@ -127,11 +162,14 @@ function Photobooth() {
     if (frameMode === '1' && videoRef.current) {
       captureCanvas.width = videoRef.current.videoWidth;
       captureCanvas.height = videoRef.current.videoHeight;
-      ctx.drawImage(videoRef.current, 0, 0, captureCanvas.width, captureCanvas.height);
+      ctx.scale(-1, 1); // flip horizontally
+      ctx.drawImage(videoRef.current, -captureCanvas.width, 0, captureCanvas.width, captureCanvas.height);
+      ctx.restore(); // restore to original state
+
       const imageData = captureCanvas.toDataURL('image/png');
       setCapturedImages([imageData, null, null, null]);
-      navigate('/photobooth/preview_photo', {
-        state: { capturedImages: [imageData], selectedFrame, frameMode }
+      navigate(`/${userId}/photobooth/preview_photo`, {
+        state: { capturedImages: [imageData], selectedFrame, frameMode, bgIndex }
       });
     }
 
@@ -156,8 +194,8 @@ function Photobooth() {
       setCurrentSlot(nextSlot);
 
       if (nextSlot === 4) {
-        navigate('/photobooth/preview_photo', {
-          state: { capturedImages: [...capturedImages.slice(0, currentSlot), imageData], selectedFrame, frameMode }
+        navigate(`/${userId}/photobooth/preview_photo`, {
+          state: { capturedImages: [...capturedImages.slice(0, currentSlot), imageData], selectedFrame, frameMode, bgIndex }
         });
       }
     }
@@ -165,11 +203,24 @@ function Photobooth() {
 
   return (
     <>
-      <img src={background} alt="background" className="background" />
+      <audio ref={cameraAudioRef} src={cameraSound} preload="auto" />
+      <img src={backgrounds[bgIndex]} alt="background" className="preview_background" />
+
+      <ChangeBgColor
+        backgrounds={backgrounds}
+        bgIndex={bgIndex}
+        onChange={handleChangeBackground}
+      />
 
       <header className="header">
         <div className="left-side">
-          <img alt="logo" className="logo" />
+          <img
+            src={logo}
+            alt="MiMeMo logo"
+            className="logo"
+            onClick={() => navigate('/')}
+            style={{ cursor: 'pointer' }}
+          />
           <img
             src={clock}
             alt="clock"
@@ -204,7 +255,14 @@ function Photobooth() {
           )}
         </div>
         <div className="right-side">
-          <p className="frame" onClick={() => setShowFrameOptions(o => !o)}>Frame</p>
+          <p className="frame" onClick={() => setShowFrameOptions(o => !o)}>
+            Frame
+            {frameMode === '4' && (
+              <span style={{ marginLeft: 8 }}>
+                {Math.min(currentSlot + 1, 4)}/4
+              </span>
+            )}
+          </p>
           {showFrameOptions && (
             <div className="frame-dropdown">
               <p onClick={() => handleFrameModeSelection('1')}>1 Frame</p>
@@ -221,64 +279,53 @@ function Photobooth() {
         </div>
       </header>
 
-      <p className="change-color">Change background color?</p>
-
       <div className="photobooth-content">
-        {/* Hidden video element for webcam stream */}
+        {/* Show video feed always, but hide/show main photo by frameMode */}
         <video
           ref={videoRef}
           autoPlay
           playsInline
           muted
-          style={{ display: frameMode === '1' ? 'block' : 'none' }}
           className="main-photo"
+          style={{ display: 'block' }}
         />
 
-        {/* 4-frame mode */}
-        {frameMode === '4' && selectedFrame && (
-          <div className="frame-overlay">
-            <img src={selectedFrame} alt="frame" className="selected-frame" />
+        {/* Show frame overlay only in 1 frame mode */}
+{frameMode === '1' && selectedFrame && (
+  <div className="frame-overlay">
+    <img src={selectedFrame} alt="frame" className="selected-frame" />
+  </div>
+)}
 
-            {[0, 1, 2, 3].map(i => (
-              <canvas
-                key={i}
-                ref={canvasRefs[i]}
-                className={`video-slot video-slot-${i}`}
-                width={350}
-                height={320}
-              />
-            ))}
+{frameMode === '4' && (
+  <>
+    {[0, 1, 2, 3].map(i => (
+      <canvas
+        key={i}
+        ref={canvasRefs[i]}
+        className={`video-slot video-slot-${i}`}
+        width={350}
+        height={320}
+      />
+    ))}
 
-            {[0, 1, 2, 3].map(i => (
-              capturedImages[i] && (
-                <img
-                  key={`captured-${i}`}
-                  src={capturedImages[i]}
-                  alt={`Captured ${i + 1}`}
-                  className={`captured-image captured-image-${i}`}
-                />
-              )
-            ))}
-          </div>
-        )}
+    {[0, 1, 2, 3].map(i => (
+      <canvas
+        key={i}
+        ref={canvasRefs[i]}
+        className={`video-slot video-slot-${i}`}
+        width={350}
+        height={320}
+      />
+    ))}
+    {/* Do not render captured images here to hide them */}
+  </>
+)}
 
-        {/* 1-frame mode */}
-        {frameMode === '1' && selectedFrame && (
-          <div className="frame-overlay">
-            <img src={selectedFrame} alt="frame" className="selected-frame" />
-            {capturedImages[0] && (
-              <img src={capturedImages[0]} alt="Captured" className="captured-image-single" />
-            )}
-          </div>
-        )}
-
-        {/* Hidden canvas for capturing photos */}
         <canvas ref={captureCanvasRef} style={{ display: 'none' }} />
 
-        {/* Capture button */}
         <button className="take-photo-button" onClick={onTakePhotoClick} />
-        
-        {/* Countdown display */}
+
         {countdownActive && (
           <div className="countdown-display">
             <span>{countdownTime}</span>

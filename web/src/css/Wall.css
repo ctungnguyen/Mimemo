@@ -92,5 +92,21 @@
 }
 
 
+.library-images {
+  position: absolute;
+  top: 100px;
+  left: 10px;
+  width: 200px;
+}
+
+.library-image {
+  position: absolute;
+  cursor: pointer;
+}
+
+.library-image-0 { top: 0; left: 0; width: 80px; }
+.library-image-1 { top: 100px; left: 10px; width: 90px; }
+/* Add more fixed positions for all your library images */
+
 
 

@@ -13,7 +13,7 @@
     rgba(249, 203, 143, 1) 0%,
     rgba(249, 203, 143, 0) 80%
   );
-  
+    
   /* make it semi-transparent */
   opacity: 0.3;          /* tweak 0.0–1.0 to suit */
   
@@ -345,42 +345,18 @@
     z-index: 5;
   }
 
-  .notebook-link {
-    position: absolute;
-    top: 1890px;    /* tweak these to line up on your shelf */
-    left: 53px;
-    cursor: pointer;
-    text-decoration: none;
-    z-index: 5;
-  }
+.logo-top-left {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 60px;
+  height: auto;
+  cursor: pointer;
+  z-index: 999;
+  transition: transform 0.2s ease-in-out;
+}
 
-  .notebook-img {
-    display: block;
-    width: 170px;  /* or whatever your camera size is */
-    height: 505px;
-    object-fit: cover;
-  transition: transform 0.3s ease;   /* animate the scale */
-  transform-origin: center center;    /* scale from its center */
-  }
 
-  /* scale up when hovered */
-.notebook-link:hover .notebook-img {
-    transform: scale(1.1);              /* 10% larger on hover */
-  }
-
-  .greenbook {
-    position: absolute;
-    top: 1925px;    /* tweak these to line up on your shelf */
-    left: 140px;
-    text-decoration: none;
-    z-index: 5;
-  }
-
-  .greenbook-img {
-    display: block;
-    width: 160px;  /* or whatever your camera size is */
-    height: 450px;;
-  }
 
   
   

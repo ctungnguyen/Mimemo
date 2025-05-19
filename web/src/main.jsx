@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import bgMusic from './audio/ambient.mp3';
-import clickSound from './audio/clicking.wav';
 import './index.css';
 
 import NotFound from './pages/NotFound.jsx';

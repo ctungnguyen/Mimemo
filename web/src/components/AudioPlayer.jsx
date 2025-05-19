@@ -23,13 +23,13 @@ function AudioPlayer({ src = '/audio/ambient.mp3', volume = 0.3 }) {
   }, [playing, muted, volume]);
 
   useEffect(() => {
-    if (!audioRef.current) return;
-    audioRef.current.pause();
-    audioRef.current.load();
-    audioRef.current.play().catch(e => {
-        console.warn("Autoplay blocked:", e);
-    });
-    }, [src]);
+  if (!audioRef.current) return;
+  audioRef.current.pause();
+  audioRef.current.load();
+  audioRef.current.play().catch(e => {
+    console.warn("Autoplay blocked:", e);
+  });
+}, [src]);
 
   useEffect(() => {
     // On first user interaction, unmute and play if currently playing
@@ -72,9 +72,7 @@ function AudioPlayer({ src = '/audio/ambient.mp3', volume = 0.3 }) {
 
   return (
     <div style={{ position: 'fixed', top: 10, right: 10, zIndex: 1000 }}>
-      <button onClick={toggleAudio}>
-        {playing ? '🔊 Playing' : '🔈 Muted'}
-      </button>
+
       <audio ref={audioRef} src={src} preload="auto" />
     </div>
   );

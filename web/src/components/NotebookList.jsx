@@ -102,17 +102,6 @@ import { collection, query, where, getDocs, addDoc } from 'firebase/firestore';
         };
 
 
-        const handleBookClick = () => {
-              console.log('Navigating with:', { capturedImages, selectedFrame, frameMode });    
-            navigate(`/${userId}/notebook`, {
-            state: {
-                capturedImages: finalImage ? [finalImage] : capturedImages, // ✅ use final image if available
-                selectedFrame: null,
-                frameMode,
-                bgIndex
-            }
-            });
-        };
 
         // Handlers for hover sound play/stop
         const handleMouseEnter = () => {
@@ -130,10 +119,14 @@ import { collection, query, where, getDocs, addDoc } from 'firebase/firestore';
             <>
                 <audio ref={audioRef} src={bookSound} preload="auto" />
 
-
-                <div className="notebook-link" onClick={handleBookClick} onMouseEnter={handleMouseEnter} style={{ cursor: 'pointer' }}>
-                    <img src={redbook} alt="red notebook" className="notebook-img" />
-                </div>
+                <div
+                        className="notebook-link"
+                        onClick={() => openOrCreateNotebook('redbook')}
+                        onMouseEnter={handleMouseEnter}
+                        style={{ cursor: 'pointer' }}
+                    >
+                        <img src={redbook} alt="red notebook" className="notebook-img" />
+                    </div>
 
                 {/* Greenbooks without inline position */}
                 <div className="greenbook greenbook1" onClick={() => openOrCreateNotebook('greenbook1')} onMouseEnter={handleMouseEnter} style={{ cursor: 'pointer' }}>

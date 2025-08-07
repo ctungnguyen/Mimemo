@@ -1,0 +1,212 @@
+.wall-page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #1f1f1f;
+  color: white;
+  font-family: 'Courier New', monospace;
+}
+
+.wall-bg {
+  position: absolute; /* or absolute? */
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+/* header */
+.wall-header {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  z-index: 10;
+}
+.header-left,
+.header-center,
+.header-right {
+  flex: 1;
+}
+.header-center {
+  text-align: center;
+  font-size: 1.2rem;
+  text-transform: lowercase;
+}
+.header-left {
+  text-align: left;
+}
+.header-right {
+  text-align: right;
+}
+.header-icon {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+/* frame & pins */
+.wall-frame-container {
+  position: relative;
+  width: 800px;   /* fixed size matches your frame image */
+  height: 600px;
+  margin: 60px auto 0 auto;
+  overflow: hidden;
+  background: transparent;
+  z-index: 1000;  /* high z-index */
+}
+
+.wall-sticker {
+  position: absolute;
+  user-select: none;
+  pointer-events: none;
+  z-index: 2000;
+  /* Confirm these styles do not hide or misplace the stickers */
+}
+
+
+
+
+/* Edit area fills exactly inside the frame container */
+.edit-area {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: auto;
+  z-index: 10;   /* above frame image */
+}
+
+/* Library container fills frame container but with padding inside the edges */
+.library-images-container {
+  position: absolute;
+  top: 20px;       /* push down a bit from top */
+  left: 20px;      /* push right a bit from left */
+  right: 20px;     /* add right padding */
+  bottom: 20px;    /* add bottom padding */
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  padding: 10px 0;  /* vertical padding inside container */
+  z-index: 20;      /* above frame */
+  border-radius: 8px; /* optional rounded edges */
+}
+
+.library-images-scroll {
+  display: flex;           /* inline-flex or flex both work */
+  gap: 10px;               /* horizontal gap between images */
+  overflow-x: auto;
+  padding: 10px;
+  white-space: nowrap;
+}
+
+.library-image {
+  flex-shrink: 0;          /* prevent shrinking */
+  height: 180px;           /* or any fixed height */
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+  user-select: none;
+  object-fit: contain;
+}
+.library-image:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+.wall-frame {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+.pins {
+  position: absolute;
+  top: 5%; left: 5%;
+  width: 90%; height: 90%;
+  overflow: hidden;
+  z-index: 4;
+}
+
+.wall-footer {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 50px;                      /* increase height */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;       /* start from right */
+  white-space: nowrap;
+  font-size: 1.5rem;                 /* bigger font */
+  font-weight: bold;
+  z-index: 10;
+
+  animation: marquee 15s linear infinite;
+  animation-direction: normal;       /* right to left */
+}
+
+@keyframes marquee {
+  from { transform: translateX(100%); }  /* start fully right */
+  to   { transform: translateX(-100%); } /* move fully left */
+}
+
+/* slightly highlight frame in edit mode */
+.wall-page.edit-mode .wall-frame {
+  box-shadow: 0 0 16px rgba(255,255,255,0.6);
+}
+
+
+.library-images-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  padding: 10px 0;
+  z-index: 20;
+  border-radius: 8px;
+  display: flex;          /* Make container a flex container */
+  align-items: center;    /* Center vertically */
+}
+
+.library-images-scroll {
+  display: flex;          /* Flex container for images */
+  gap: 10px;
+  overflow-x: auto;
+  padding: 10px;
+  white-space: nowrap;
+  width: 100%;
+  /* Remove height here if any, let image size control height */
+}
+
+.library-image {
+  flex-shrink: 0;         /* Prevent shrinking */
+  height: 180px;          /* Fixed height */
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+  user-select: none;
+  object-fit: contain;
+  /* Remove position absolute */
+}
+
+.library-image:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+/* Remove these absolute position rules below completely */
+/*
+.library-image-0 { top: 0; left: 0; width: 80px; }
+.library-image-1 { top: 100px; left: 10px; width: 90px; }
+*/
+

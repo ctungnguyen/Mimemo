@@ -1,0 +1,46 @@
+/* make the two-page container a positioning context */
+.notebook-area {
+  position: relative;
+}
+
+/* the vertical, scrollable sticker palette */
+.sticker-picker {
+  position: absolute;
+  top: 16px;
+  left: 0;               /* Stick panel right at the left edge */
+  width: 100px;          /* Narrower width */
+  height: calc(100% - 32px); /* Full height minus padding */
+  background: #fff;      /* White background */
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 8px 4px;      /* Less horizontal padding */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;             /* Larger gap for bigger spacing */
+  overflow-y: auto;      /* Scroll if too tall */
+  z-index: 50;
+}
+
+/* each thumbnail in the list */
+.sticker-thumb {
+  width: 90%;        /* Bigger sticker preview width */
+  height: auto;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: border-color 0.2s;
+  user-select: none;
+}
+
+.sticker-thumb:hover {
+  border-color: #999;
+}
+
+/* the draggable sticker once it's placed */
+.sticker-draggable {
+  position: absolute;
+  width: 100px;  /* Fixed sticker size */
+  height: auto;
+  cursor: move;
+  z-index: 100;
+  user-select: none;
+}

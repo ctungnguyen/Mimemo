@@ -1,0 +1,392 @@
+/* src/css/HomePage.css */
+.light-effect {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -20%);
+  width: 1196px;
+  height: 1196px;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(249, 203, 143, 1) 5%,
+    rgba(249, 203, 143, 0.65) 40%,      /* mid glow */
+    rgba(255, 245, 200, 0) 75%,      /* outer glow */
+    rgb(0, 0, 0) 100%         /* fully transparent edge */
+  );
+  opacity: 0.4;  /* adjust overall light intensity */
+  mix-blend-mode: screen;
+  z-index: 1000;
+}
+
+.sky-gif {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1057px;
+    height: 606px;
+    object-fit: cover;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.window-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1059px;
+    height: 606px;
+    object-fit: cover;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.flower {
+    position: absolute;
+    top: 66px;
+    left: 847px;
+    width: 540px;
+    height: 544px;
+    z-index: 3;
+}
+
+.mode-toggle {
+    position: absolute;
+    top: 550px;
+    left: 28px;
+    display: flex;
+    gap: 6px;
+    z-index: 4;
+}
+
+.mode-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.first-shelf {
+    position: absolute;
+    top: 830px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 51%;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    line-height: 1.4;
+    opacity: 0;
+    color: black;
+}
+
+.second-shelf {
+    position: absolute;
+    top: 1400px;
+    left: 73%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    line-height: 1.4;
+    opacity: 0;
+    color: black;
+
+}
+
+.third-shelf {
+    position: absolute;
+    top: 1925px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    line-height: 1.4;
+    opacity: 0;
+    color: black;
+
+}
+
+.fourth-shelf {
+  position: absolute;
+  top: 2655px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  line-height: 1.4;
+  opacity: 0;
+  
+  /* Make text purple */
+  color: #ab07ab; /* classic purple */
+
+  /* Increase font size a bit */
+  font-size: 1.3rem; /* a bit bigger */
+  font-weight: 550;
+
+
+
+}
+
+.fade-in {
+    opacity: 1;
+    transition: opacity 0.6s ease-in;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.6s ease-out;
+}
+
+.auth-toggle {
+    position: absolute;
+    top: 380px;
+    left: 950px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 3;
+  }
+  
+  .auth-link.light-mode {
+    color: black;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+  }
+
+  .auth-link.dark-mode {
+    color: white;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+  }
+  
+  .auth-link:hover {
+    color: yellow;
+  }
+  
+  .signup-form{
+    position: absolute;
+    top: 195px;
+    left: 995px;
+    background: red;
+    padding: 12px;
+    border-radius: 20px;
+    border: 2px solid white;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 4;
+  }
+
+  .login-form {
+    position: absolute;
+    top: 445px;
+    left: 995px;
+    background: red;
+    padding: 12px;
+    border-radius: 20px;
+    border: 2px solid white;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 4;
+    
+
+  }
+  
+  /* white “border” triangle behind */
+.signup-form::before {
+    content: "";
+    position: absolute;
+    bottom: -12px;    /* 2px further down than the red one */
+    left: 22px;       /* 2px to the left of the red one */
+    width: 0;
+    height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-top: 14px solid white;
+    transform: rotate(135deg);
+    z-index: 3;       /* sit behind the red fill */
+  }
+
+/* triangle tail */
+.signup-form::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;      /* pull it below the bubble */
+    left: 24px;         /* adjust horizontal position */
+    width: 0;
+    height: 0;
+    transform: rotate(135deg); /* rotate to point upwards */
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 12px solid red;  /* same color as bubble */
+    z-index: 4;
+  }
+
+    /* white “border” triangle behind */
+.login-form::before {
+    content: "";
+    position: absolute;
+    bottom: 173px;    /* 2px further down than the red one */
+    left: 22px;       /* 2px to the left of the red one */
+    width: 0;
+    height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-top: 14px solid white;
+    transform: rotate(45deg);
+    z-index: 3;       /* sit behind the red fill */
+  }
+
+/* triangle tail */
+.login-form::after {
+    content: "";
+    position: absolute;
+    bottom: 172px;      /* pull it below the bubble */
+    left: 24px;         /* adjust horizontal position */
+    width: 0;
+    height: 0;
+    transform: rotate(45deg); /* rotate to point upwards */
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 12px solid red;  /* same color as bubble */
+    z-index: 4;
+  }
+  
+  .signup-form label, .login-form label {
+    color: white;
+    font-family: 'Courier New', monospace;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .signup-form input, .login-form input {
+    background: transparent;     /* match the red bubble behind */
+    border: none;               /* no visible border */
+    outline: none;              /* drop the default focus ring */
+    color: white;               /* make the typed text white */
+    padding: 4px 0;             /* keep your vertical padding, remove extra horizontal */
+    font-family: 'Courier New', monospace;
+    font-size: 1em;
+  }
+  
+  /* placeholder text */
+  .signup-form input::placeholder, .login-form input::placeholder {
+    color: rgba(255,255,255,0.7);  /* semi-opaque white */
+  }
+  
+  .signup-form button, .login-form button {
+    background: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px;
+    cursor: pointer;
+    color: black;
+  }
+  
+  .signup-form button:hover, .login-form button:hover {
+    background: yellow;
+  }
+
+/* ===== PHOTOBOOTH LINK & TOOLTIP ===== */
+.photobooth-link {
+    position: absolute;
+    top: 1490px;    /* tweak these to line up on your shelf */
+    left: 145px;
+    cursor: pointer;
+    text-decoration: none;
+    z-index: 5;
+  }
+  
+  .photobooth-img {
+    display: block;
+    width: 390px;  /* or whatever your camera size is */
+    height: 300px;;
+  }
+  
+/* bubble hidden until hover */
+.photobooth-tooltip {
+    position: absolute;
+    bottom: 100%;    /* just above the camera */
+    left: 100%;
+    transform: translateX(-50%) translateY(-8px);
+    background: red;
+    color: white;
+    font-family: 'Courier New', monospace;
+    border: 2px solid white;
+    border-radius: 20px;
+    padding: 10px 14px;
+    white-space: nowrap;
+  }
+
+    /* white “border” triangle behind */
+.photobooth-tooltip::before {
+    content: "";
+    position: absolute;
+    bottom: -10px;    /* 2px further down than the red one */
+    left: 18px;       /* 2px to the left of the red one */
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 12px solid white;
+    transform: rotate(135deg);
+    z-index: 3;       /* sit behind the red fill */
+  }
+
+/* triangle tail */
+.photobooth-tooltip::after {
+    content: "";
+    position: absolute;
+    bottom: -7px;      /* pull it below the bubble */
+    left: 21.5px;         /* adjust horizontal position */
+    width: 0;
+    height: 0;
+    transform: rotate(135deg); /* rotate to point upwards */
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid red;  /* same color as bubble */
+    z-index: 4;
+  }
+
+
+  .photobooth-link:hover .photobooth-tooltip {
+    opacity: 1;
+  }
+  
+  /* ===== WALL LINK ===== */
+  .wall-link {
+    position: absolute;
+    top: 1790px;   /* position under the shelf */
+    left: 50px;
+    color: black;
+    font-family: 'Courier New', monospace;
+    text-decoration: none;
+    cursor: pointer;
+    z-index: 5;
+  }
+
+.logo-top-left {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 60px;
+  height: auto;
+  cursor: pointer;
+  z-index: 999;
+  transition: transform 0.2s ease-in-out;
+}
+
+
+.first-shelf,
+.second-shelf,
+.third-shelf,
+.auth-toggle,
+.wall-link {
+  font-size: 1rem;     /* increase font size */
+  font-weight: 550;      /* make text a bit bold */
+  /* optionally adjust line-height if you want */
+  line-height: 1.3;
+}
+  
+  
+

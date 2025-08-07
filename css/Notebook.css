@@ -1,0 +1,494 @@
+.background{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+/* top-nav + dropdown */
+.top-nav {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 30;
+}
+
+  .menu-icon {
+    width: 32px;
+    cursor: pointer;
+  }
+  .menu-dropdown {
+    position: absolute;
+    top: 36px; left: 0;
+    background: red;
+    border: 2px solid white;
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 35;
+  
+    /* smooth fade-in */
+    opacity: 0;
+    animation: fadeIn 0.2s ease-in forwards;
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+  .dropdown-item {
+    padding: 8px 12px;
+    color: white;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+  }
+  .dropdown-item:hover {
+    background: rgba(255,255,255,0.2);
+  }
+  
+
+
+.bell-icon {
+  width: 28px;
+  height: auto;
+  cursor: pointer;
+}
+
+.print-icon {
+  width: 28px;
+  height: auto;
+  cursor: pointer;
+}
+
+/* Bottom right icon group */
+.bottom-right-icons {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 30;
+}
+
+.bottom-right-icons img {
+  width: 28px;
+  cursor: pointer;
+}
+  
+  /* color panel + eraser button */
+  .color-panel {
+    position: absolute;
+    top: 60px; left: 16px;
+    display: grid;
+    grid-template-columns: repeat(9, 24px) 32px;
+    grid-gap: 4px;
+    background: #222;
+    padding: 8px;
+    border: 2px solid white;
+    border-radius: 8px;
+    z-index: 30;
+  }
+  .color-swatch {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    border: 2px solid #555;
+    transition: border-color 0.2s;
+  }
+  .color-swatch:hover,
+  .color-swatch.active {
+    border-color: white;
+  }
+  .eraser-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .eraser-button img {
+    width: 24px;
+  }
+  
+  /* pages + nav + canvas wrapper */
+  .nb-viewer {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    align-items: center;
+    z-index: 10;
+  }
+  .nb-nav {
+    font-size: 2rem;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0 12px;
+    margin: 20px;
+  }
+  .nb-nav:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+.nb-pages {
+  position: relative;
+  display: flex;
+  gap: 5px;             /* smaller gap between pages */
+  max-width: 900px;    /* container max width */
+  width: 90vw;          /* make container responsive */
+  height: 80vh;         /* fixed height for consistency */
+}
+
+.nb-page {
+  flex: 1;              /* make each page equally share the container space */
+  height: 100%;         /* fill parent's height */
+  object-fit: contain;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
+  
+  /* lock drawing by default */
+  .canvas-wrapper {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 15;
+  
+    pointer-events: none;
+  }
+  
+  /* enable drawing when this class is applied */
+  .canvas-wrapper.draw-enabled {
+    pointer-events: auto;
+  }
+  
+  /* counter */
+.page-counter {
+  position: absolute;
+  top: calc(50% + 40vh); /* Lowered from 30vh to 40vh for more space below */
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-family: 'Courier New', monospace;
+  z-index: 10;
+}
+  
+  /* print */
+  @media print {
+    body * { visibility: hidden; }
+    .nb-pages, .nb-pages * { visibility: visible; }
+    .nb-pages {
+      position: static;
+      display: block;
+      margin: 0 auto;
+      width: 100%;
+      max-width: none;
+    }
+  }
+
+
+/* Text items you can drag around */
+.text-item {
+    position: absolute;
+    padding: 4px 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    color: #000;
+    background: rgba(255,255,255,0.8);
+    border: 1px dashed #888;
+    cursor: move;
+    user-select: none;
+    white-space: pre;
+  }
+  
+  .text-item:hover {
+    border-color: #444;
+  }
+
+
+  
+
+  
+
+.group-frame-sticker {
+  position: relative;
+  width: 390px; /* adjust to actual frame width */
+  height: 770px; /* adjust to actual frame height */
+}
+
+.group-frame-sticker img {
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.6);
+  object-fit: cover;
+  position: absolute;
+  pointer-events: auto;
+}
+
+.captured-image-0 {
+  top: 8.5%;
+  left: 36.5%;
+  width: 57%;
+  height: 16%;
+}
+.captured-image-1 {
+  top: 29.5%;
+  left: 36.5%;
+  width: 57%;
+  height: 16%;
+}
+.captured-image-2 {
+  top: 51%;
+  left: 36.5%;
+  width: 57%;
+  height: 16%;
+}
+.captured-image-3 {
+  top: 72%;
+  left: 36.5%;
+  width: 57%;
+  height: 16%;
+}
+
+
+.notebook-name {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  cursor: pointer;
+}
+
+.notebook-name-text {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.notebook-name-input {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 4px;
+  text-align: center;
+  border: none;
+  border-radius: 4px;
+}
+
+/* In Notebook.css or global CSS */
+.resizable-element.selected {
+  border: 2px dashed #4A90E2;
+}
+
+.resizable-box {
+  position: relative;
+  overflow: visible; /* <- allow handles to render outside the sticker */
+}
+
+.resize-handle {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  border: 2px solid #4A90E2;
+  border-radius: 50%;
+  z-index: 999;
+}
+
+.top-left { top: -6px; left: -6px; cursor: nwse-resize; }
+.top-right { top: -6px; right: -6px; cursor: nesw-resize; }
+.bottom-left { bottom: -6px; left: -6px; cursor: nesw-resize; }
+.bottom-right { bottom: -6px; right: -6px; cursor: nwse-resize; }
+
+.dropdown {
+  position: absolute;
+  background: #222;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  padding: 12px;
+  min-width: 250px;
+  max-height: 300px;
+  overflow-y: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  z-index: 50;
+}
+
+.dropdown p {
+  margin: 8px 0;
+  cursor: default;
+}
+
+.dropdown p span.role-label {
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-left: 8px;
+  color: #f9c96e;
+  font-style: italic;
+}
+
+.dropdown p:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Bell dropdown container */
+.dropdown.notifications-dropdown {
+  position: fixed; /* Fixed to viewport */
+  top: 50px;       /* Adjust as needed */
+  right: 20px;     /* Offset from right */
+  background: #222;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  padding: 12px;
+  min-width: 250px;
+  max-height: 300px;
+  overflow-y: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  z-index: 50;
+
+  /* Prevent horizontal overflow */
+  max-width: calc(100vw - 40px); /* viewport width minus some margin */
+  box-sizing: border-box;
+}
+
+/* Keep other dropdowns consistent */
+.dropdown {
+  position: fixed; /* change from absolute to fixed */
+  background: #222;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  padding: 12px;
+  min-width: 250px;
+  max-height: 300px;
+  overflow-y: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  z-index: 50;
+
+  max-width: calc(100vw - 40px);
+  box-sizing: border-box;
+}
+
+/* Optionally add a subtle scrollbar style */
+.dropdown::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dropdown::-webkit-scrollbar-thumb {
+  background-color: rgba(249, 201, 110, 0.6);
+  border-radius: 4px;
+}
+
+
+
+.search-result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.search-result-item:hover {
+  background-color: rgba(255, 201, 92, 0.3);
+}
+
+.search-result-item button {
+  background-color: #f9c96e;
+  border: none;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  font-weight: bold;
+  color: black;
+  line-height: 1;
+}
+
+
+
+
+/* User list dropdown */
+.dropdown.user-list-dropdown {
+  position: fixed;            /* fixed to viewport */
+  bottom: 70px;              /* slightly above bottom icons */
+  right: 60px;               /* offset left from icon */
+  background: #222;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  padding: 12px;
+  min-width: 220px;
+  max-height: 280px;
+  overflow-y: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  z-index: 100;              /* above icons */
+  max-width: calc(100vw - 80px);
+  box-sizing: border-box;
+}
+
+
+/* Share dropdown */
+.dropdown.share-dropdown {
+  position: fixed;
+  bottom: 70px;              /* align with user list */
+  right: 20px;               /* closer to share icon */
+  background: #222;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  padding: 12px;
+  min-width: 280px;
+  max-height: 320px;
+  overflow-y: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  z-index: 100;
+  max-width: calc(100vw - 40px);
+  box-sizing: border-box;
+}
+
+
+/* Scrollbar for dropdowns */
+.dropdown::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dropdown::-webkit-scrollbar-thumb {
+  background-color: rgba(249, 201, 110, 0.6);
+  border-radius: 4px;
+}
+
+/* Dropdown item hover */
+.dropdown p:hover,
+.search-result-item:hover {
+  background-color: rgba(255, 201, 92, 0.3);
+}
+
+.search-result-item button {
+  background-color: #f9c96e;
+  border: none;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  font-weight: bold;
+  color: black;
+
+  display: flex;              /* make button a flex container */
+  align-items: center;        /* vertical center */
+  justify-content: center;    /* horizontal center */
+  font-size: 16px;            /* increase font size for better centering */
+  padding: 0;
+  line-height: 1;
+  user-select: none;
+}
